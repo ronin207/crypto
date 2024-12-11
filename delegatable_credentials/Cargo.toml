@@ -1,7 +1,7 @@
 [package]
 name = "delegatable_credentials"
 version = "0.10.0"
-edition.workspace = true
+edition = "2021"
 authors.workspace = true
 license.workspace = true
 repository.workspace = true
@@ -30,9 +30,22 @@ default-features = false
 
 [dev-dependencies]
 blake2.workspace = true
-ark-bls12-381.workspace = true
+ark-bls12-381 = { workspace = true, features = ["curve"] }
+criterion = { version = "0.4", features = ["html_reports"] }
+
+[[bench]]
+name = "protego_benchmarks"
+harness = false
 
 [features]
-default = [ "parallel" ]
-std = [ "ark-ff/std", "ark-ec/std", "ark-std/std", "ark-serialize/std", "serde/std", "dock_crypto_utils/std", "ark-poly/std", "schnorr_pok/std"]
-parallel = [ "std", "ark-ff/parallel", "ark-ec/parallel", "ark-std/parallel", "rayon", "dock_crypto_utils/parallel", "ark-poly/parallel", "schnorr_pok/parallel"]
+default = ["parallel"]
+parallel = [
+    "ark-ff/parallel",
+    "ark-ec/parallel",
+    "ark-std/parallel",
+    "rayon",
+    "dock_crypto_utils/parallel",
+    "ark-poly/parallel",
+    "schnorr_pok/parallel"
+]
+std = []
